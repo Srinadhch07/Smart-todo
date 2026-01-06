@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Classic To‑Do</title>
+
+<style>
+/* =====================
+   RESET & BASE
+===================== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  background: #f4f6f8;
+  color: #1f2937;
+  min-height: 100vh;
+}
+
+/* =====================
+   LAYOUT
+===================== */
+.app {
+  max-width: 720px;
+  margin: 60px auto;
+  background: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+  overflow: hidden;
+}
+
+.header {
+  padding: 24px;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.header h1 {
+  font-size: 24px;
+  font-weight: 600;
+}
+
+.header p {
+  margin-top: 4px;
+  color: #6b7280;
+  font-size: 14px;
+}
+
+/* =====================
+   FORM
+===================== */
+.form {
+  padding: 20px 24px;
+  border-bottom: 1px solid #e5e7eb;
+  display: grid;
+  grid-template-columns: 1fr 120px 120px auto;
+  gap: 10px;
+}
+
+.form input,
+.form textarea {
+  padding: 10px;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+.form textarea {
+  grid-column: 1 / -1;
+  resize: vertical;
+}
+
+.form button {
+  padding: 10px 16px;
+  border: none;
+  border-radius: 6px;
+  background: #2563eb;
+  color: #fff;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.form button:hover {
+  background: #1e40af;
+}
+
+/* =====================
+   FILTERS
+===================== */
+.filters {
+  display: flex;
+  gap: 12px;
+  padding: 16px 24px;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.filters button {
+  background: none;
+  border: none;
+  font-size: 14px;
+  color: #374151;
+  cursor: pointer;
+}
+
+.filters button.active {
+  font-weight: 600;
+  color: #2563eb;
+}
+
+/* =====================
+   TASK LIST
+===================== */
+.tasks {
+  list-style: none;
+}
+
+.task {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 24px;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.task:last-child {
+  border-bottom: none;
+}
+
+.task.completed .title {
+  text-decoration: line-through;
+  color: #9ca3af;
+}
+
+.info {
+  flex: 1;
+}
+
+.title {
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.meta {
+  font-size: 12px;
+  color: #6b7280;
+  margin-top: 2px;
+}
+
+/* =====================
+   ACTIONS
+===================== */
+.actions {
+  display: flex;
+  gap: 8px;
+}
+
+.actions button {
+  padding: 6px 10px;
+  font-size: 12px;
+  border-radius: 4px;
+  border: none;
+  cursor: pointer;
+}
+
+.done {
+  background: #16a34a;
+  color: white;
+}
+
+.edit {
+  background: #e5e7eb;
+}
+
+.delete {
+  background: #dc2626;
+  color: white;
+}
+
+/* =====================
+   MODAL
+===================== */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.45);
+  display: none;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal {
+  background: white;
+  padding: 24px;
+  border-radius: 8px;
+  width: 90%;
+  max-width: 400px;
+}
+
+.modal h3 {
+  font-size: 18px;
+}
+
+.modal p {
+  margin: 12px 0 20px;
+  font-size: 14px;
+  color: #4b5563;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.modal-actions button {
+  padding: 8px 14px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+}
+
+/* =====================
+   RESPONSIVE
+===================== */
+@media (max-width: 640px) {
+  .form {
+    grid-template-columns: 1fr;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="app">
+  <div class="header">
+    <h1>Classic To‑Do</h1>
+    <p>Simple. Reliable. Production‑ready.</p>
+  </div>
+
+  <div class="form">
+    <input id="name" placeholder="Task name">
+    <input id="hours" type="number" min="0" placeholder="Hours">
+    <input id="minutes" type="number" min="0" max="59" placeholder="Minutes">
+    <button onclick="addTask()">Add</button>
+    <textarea id="desc" placeholder="Description (optional)"></textarea>
+  </div>
+
+  <div class="filters">
+    <button class="active" onclick="setFilter('all')">All</button>
+    <button onclick="setFilter('active')">Active</button>
+    <button onclick="setFilter('completed')">Completed</button>
+  </div>
+
+  <ul class="tasks" id="list"></ul>
+</div>
+
+<div class="modal-overlay" id="modal">
+  <div class="modal">
+    <h3 id="modalTitle"></h3>
+    <p id="modalText"></p>
+    <div class="modal-actions">
+      <button onclick="closeModal()">Cancel</button>
+      <button id="modalConfirm">Confirm</button>
+    </div>
+  </div>
+</div>
+
+<script>
+let tasks = JSON.parse(localStorage.getItem('tasks') || '[]');
+let filter = 'all';
+let pendingAction = null;
+
+function save() {
+  localStorage.setItem('tasks', JSON.stringify(tasks));
+}
+
+function addTask() {
+  const name = nameInput.value.trim();
+  const h = Number(hours.value);
+  const m = Number(minutes.value);
+
+  if (!name) return alert('Task name required');
+  if ((h === 0 && m === 0) || m > 59) return alert('Valid time required');
+
+  tasks.push({
+    id: Date.now(),
+    name,
+    desc: desc.value,
+    h, m,
+    done: false
+  });
+
+  nameInput.value = desc.value = hours.value = minutes.value = '';
+  save();
+  render();
+}
+
+function render() {
+  list.innerHTML = '';
+  tasks.filter(t => {
+    if (filter === 'active') return !t.done;
+    if (filter === 'completed') return t.done;
+    return true;
+  }).forEach(t => {
+    const li = document.createElement('li');
+    li.className = 'task' + (t.done ? ' completed' : '');
+    li.innerHTML = `
+      <div class="info">
+        <div class="title">${t.name}</div>
+        ${t.desc ? `<div class="meta">${t.desc}</div>` : ''}
+        <div class="meta">⏱ ${t.h}h ${t.m}m</div>
+      </div>
+      <div class="actions">
+        ${!t.done ? `<button class="done" onclick="complete(${t.id})">Done</button>` : ''}
+        <button class="edit" onclick="edit(${t.id})">Edit</button>
+        <button class="delete" onclick="confirmDelete(${t.id})">Delete</button>
+      </div>
+    `;
+    list.appendChild(li);
+  });
+}
+
+function complete(id) {
+  tasks.find(t => t.id === id).done = true;
+  save(); render();
+}
+
+function edit(id) {
+  const t = tasks.find(t => t.id === id);
+  nameInput.value = t.name;
+  desc.value = t.desc;
+  hours.value = t.h;
+  minutes.value = t.m;
+  tasks = tasks.filter(x => x.id !== id);
+  save(); render();
+}
+
+function confirmDelete(id) {
+  openModal('Delete task?', 'This action cannot be undone.', () => {
+    tasks = tasks.filter(t => t.id !== id);
+    save(); closeModal(); render();
+  });
+}
+
+function openModal(title, text, action) {
+  modalTitle.textContent = title;
+  modalText.textContent = text;
+  modalConfirm.onclick = action;
+  modal.style.display = 'flex';
+}
+
+function closeModal() {
+  modal.style.display = 'none';
+}
+
+function setFilter(f) {
+  filter = f;
+  document.querySelectorAll('.filters button').forEach(b => b.classList.remove('active'));
+  event.target.classList.add('active');
+  render();
+}
+
+const nameInput = document.getElementById('name');
+const desc = document.getElementById('desc');
+const hours = document.getElementById('hours');
+const minutes = document.getElementById('minutes');
+const list = document.getElementById('list');
+const modal = document.getElementById('modal');
+const modalTitle = document.getElementById('modalTitle');
+const modalText = document.getElementById('modalText');
+const modalConfirm = document.getElementById('modalConfirm');
+
+render();
+</script>
+
+</body>
+</html>
