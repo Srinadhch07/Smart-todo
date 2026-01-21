@@ -10,8 +10,8 @@
 
   You can also try this just clicking the link here 👉 [Smart-Todo](https://srinadhch07.github.io/Smart-todo/).
   - If you wanna use it like just app, follow the instructions below:
-        1. Open link in chrome
-        2. click on three dots at top right corner
-        3. click on *Add to Home screen*
+        + Open link in chrome.
+        + click on three dots at top right corner
+        + click on *Add to Home screen*
 Have a productive days...
     
