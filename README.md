@@ -1,17 +1,24 @@
-# Smart-todo
+# Smart-Todo
 
-  It's just piece code which helps you to schedule work along with your estimated time.
-  ## Why it is smart and effective ?
-  - Because, this way of scheduling tasks wil help you to focus WHILE to END of performing  task rather then STARTING point of task.
-  ## HOW ?
-  - Simple, usually we schedule task along with **when to start**, but this makes us to sit on task but not motivates us to finish the task, if miss the starting time people might disappoint and never touch the task again.
-  - But when we schedule the task along with our own estimated time period irrespetive of when to start. When we start it, automatically we focus on finishing task within our estimated time. Success ratio of finishing task will always high. With same high we take another task...
-## Wanna use it ?
+It’s a simple piece of code that helps you schedule work along with your estimated time.
 
-  You can also try this by just clicking the link here 👉 [Smart-Todo](https://srinadhch07.github.io/Smart-todo/).
-  - If you wanna use it like just app, follow the instructions below:
-    1. Open link in chrome.
-    2. click on three dots at top right corner
-    3. Click on *Add to Home screen*
-Have a productive days...
-    
+## Why is it smart and effective?
+- Because this way of scheduling tasks helps you focus **from the moment you start until you finish the task**, rather than worrying about the starting point.
+
+## HOW?
+- Usually, we schedule tasks based on **when to start**, but this often makes us sit on the task without real motivation to finish it.
+- If we miss the starting time, we feel disappointed and may never touch the task again.
+- Instead, Smart-Todo lets you schedule tasks based on your **own estimated time**, regardless of when you start.
+- Once you begin, your focus automatically shifts to finishing the task within the estimated time.
+- The success ratio of completing tasks becomes much higher.
+- With that same momentum, you naturally move on to the next task.
+
+## Wanna use it?
+You can try it here 👉 [Smart-Todo](https://srinadhch07.github.io/Smart-todo/)
+
+### Use it like an app:
+1. Open the link in Chrome.
+2. Click the three dots in the top-right corner.
+3. Click **Add to Home screen**.
+
+Have a productive day! 🚀
