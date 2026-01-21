@@ -6,4 +6,12 @@
   ## HOW ?
   - Simple, usually we schedule task along with **when to start**, but this makes us to sit on task but not motivates us to finish the task, if miss the starting time people might disappoint and never touch the task again.
   - But when we schedule the task along with our own estimated time period irrespetive of when to start. When we start it, automatically we focus on finishing task within our estimated time. Success ratio of finishing task will always high. With same high we take another task...
+## Wanna use it ?
+
+  You can also try this just clicking the link here 👉 [Smart-Todo](https://srinadhch07.github.io/Smart-todo/).
+  - If you wanna use it like just app, follow the instructions below:
+        1. Open link in chrome
+        2. click on three dots at top right corner
+        3. click on *Add to Home screen*
+Have a productive days...
     
