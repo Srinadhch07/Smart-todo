@@ -21,4 +21,4 @@ You can try it here 👉 [Smart-Todo](https://srinadhch07.github.io/Smart-todo/)
 2. Click the three dots in the top-right corner.
 3. Click **Add to Home screen**.
 
-Have a productive day! 🚀
+Have a productive day!
